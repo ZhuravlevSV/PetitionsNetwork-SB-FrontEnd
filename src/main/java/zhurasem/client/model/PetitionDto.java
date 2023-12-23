@@ -1,5 +1,10 @@
 package zhurasem.client.model;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +19,14 @@ public class PetitionDto {
     public List<Long> commentsIds = new ArrayList<>();
     public List<String> signedUsersIds = new ArrayList<>();
 
-    public PetitionDto() {}
+    public PetitionDto() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            this.dateFrom = dateFormat.parse(dateFormat.format(new Date()));
+        } catch (ParseException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Date format parse error");
+        }
+    }
 
     public PetitionDto(Long pid, String title, String text, int goal, Date dateFrom, String authorPetitionId, List<Long> commentsIds, List<String> signedUsersIds) {
         this.pid = pid;
@@ -25,6 +37,19 @@ public class PetitionDto {
         this.authorPetitionId = authorPetitionId;
         this.commentsIds = commentsIds;
         this.signedUsersIds = signedUsersIds;
+    }
+
+    public PetitionDto(String title, String text, int goal, String authorPetitionId) {
+        this.title = title;
+        this.text = text;
+        this.goal = goal;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            this.dateFrom = dateFormat.parse(dateFormat.format(new Date()));
+        } catch (ParseException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Date format parse error");
+        }
+        this.authorPetitionId = authorPetitionId;
     }
 
     public Long getPid() {

@@ -58,18 +58,24 @@
             <label>Title:</label>
             <input type="text" id="title" name="title" th:field="*{title}" class="form-control" required/>
         </div>
-        <div class="form-group text-field">
+        <div class="form-group">
             <label>Text:</label>
             <textarea id="text" name="text" th:field="*{text}" class="form-control" rows="4" required></textarea>
         </div>
         <div class="form-group">
             <label>Goal:</label>
-            <input type="password" name="password" th:field="*{password}" class="form-control" required/>
+            <input type="number" id="goal" name="goal" th:field="*{goal}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label>Select Author:</label>
+            <select id="authorPetitionId" name="authorPetitionId" th:field="*{authorPetitionId}" class="form-control">
+                <option th:each="user : ${userList}" th:value="${user.username}" th:text="${user.username}"></option>
+            </select>
         </div>
         <input type="submit" class="btn btn-primary"/>
     </form>
     <div class="d-flex justify-content-center">
-        <a href="/users" class="btn btn-navigate">Users List</a>
+        <a href="/petitions" class="btn btn-navigate">Petitions List</a>
     </div>
 </div>
 </body>
