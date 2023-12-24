@@ -60,4 +60,13 @@ public class PetitionClient {
                 .retrieve()
                 .bodyToMono(Void.TYPE);
     }
+
+    public Mono<PetitionWebModel> sign(Long pid, String username) {
+        return petitionWebClient
+                .post()
+                .uri("/{pid}/sign/{username}", pid, username)
+                .retrieve()
+                .bodyToMono(PetitionWebModel.class);
+    }
+
 }
