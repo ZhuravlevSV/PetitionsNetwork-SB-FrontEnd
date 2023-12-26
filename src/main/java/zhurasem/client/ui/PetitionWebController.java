@@ -77,5 +77,12 @@ public class PetitionWebController {
                 .thenReturn("redirect:/petitions");
     }
 
+    @GetMapping("/petitions/{username}/myPetitions")
+    public String listMyPetitions(@PathVariable String username, Model model) {
+        model.addAttribute("author", userClient.readById(username));
+        model.addAttribute("petitions", petitionClient.readAllUserPetitions(username));
+        return "petitionsMyPetitions";
+    }
+
 
 }

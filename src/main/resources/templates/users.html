@@ -68,6 +68,7 @@
         <td th:text="${user.email}">chad@gigamail.com</td>
         <td th:text="${user.password}">killermaster228</td>
         <td>
+            <a class="btn btn-secondary btn-sm" th:href="@{'/petitions/' + ${user.username} + '/myPetitions'}" role="button">My Petitions</a>
             <a class="btn btn-secondary btn-sm" th:href="@{'/users/edit?username=' + ${user.username}}" role="button">Edit</a>
             <a class="btn btn-secondary btn-sm" th:href="@{'/users/delete?username=' + ${user.username}}" role="button">Delete</a>
         </td>

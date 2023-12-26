@@ -69,4 +69,12 @@ public class PetitionClient {
                 .bodyToMono(PetitionWebModel.class);
     }
 
+    public Flux<PetitionWebModel> readAllUserPetitions(String username) {
+        return petitionWebClient
+                .get()
+                .uri("/{username}/myPetitions", username)
+                .retrieve()
+                .bodyToFlux(PetitionWebModel.class);
+    }
+
 }
